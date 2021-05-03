@@ -6,7 +6,7 @@ const withAuth = require('../../utils/auth');
 router
 .route('/')
     .get( async (req, res) => {
-        try{ const postData =Post.findAll({
+        try{const postData = await Post.findAll({
             attributes: ['id',
                 'title',
                 'content',
@@ -36,7 +36,7 @@ router
 
     })
     .post(withAuth, async (req, res) => {
-        try { const postData =  Post.create({
+        try { const postData =  await Post.create({
                 title: req.body.title,
                 content: req.body.content,
                 user_id: req.session.user_id
@@ -50,7 +50,7 @@ router
 router
 .route('/:id')
     .get( async (req, res) => {
-        try { const postData = Post.findByPK({
+        try { const postData = await Post.findByPK({
             where: {
                 id: req.params.id
             },
