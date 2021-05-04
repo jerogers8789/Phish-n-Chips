@@ -16,5 +16,12 @@
   "bugs": {
     "url": "https://github.com/jerogers8789/Phish-n-Chips/issues"
   },
-  "homepage": "https://github.com/jerogers8789/Phish-n-Chips#readme"
+  "homepage": "https://github.com/jerogers8789/Phish-n-Chips#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "handlebars": "^4.7.7",
+    "mysql": "^2.18.1",
+    "sequelize": "^6.6.2"
+  }
 }
