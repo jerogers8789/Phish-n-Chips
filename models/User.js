@@ -25,16 +25,15 @@ User.init({
     }
 }, {
     hooks: {
-        async beforeBuild(newUserData) {
+         beforeCreate: async (newUserData) => {
             newUserData.pw = await bcrypt.hash(newUserData.pw, 10);
             return newUserData;
         },
-        async beforeUpdate(updateUserData) {
+        beforeUpdate: async (updateUserData) => {
             updateUserData.pw = await bcrypt.hash(updateUserData.pw, 10);
             return updateUserData;
         }
-    }
-}, {
+},
     sequelize,
     timestamp: false,
     freezeTableName: true,
