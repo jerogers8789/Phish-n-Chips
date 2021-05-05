@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/jerogers8789/Phish-n-Chips#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "connect-session-sequelize": "^7.1.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
