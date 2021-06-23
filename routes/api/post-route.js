@@ -28,7 +28,7 @@ router
                 }
             ]
         })
-        .then(postData => res.json(postData.reverse()))
+        res.json(postData.reverse())
         } catch(err) {
             console.log(err);
             res.status(500).json(err);
@@ -41,7 +41,7 @@ router
                 content: req.body.content,
                 user_id: req.session.user_id
             })
-            .then(postData => res.json(postData))
+            res.json(postData)
         }   catch(err) {
                 console.log(err);
                 res.status(500).json(err);
@@ -73,13 +73,12 @@ router
                 }
             ]
         })
-        .then(postData => {
             if (!postData) {
                 res.status(404).json({ message: 'No post found with this id' });
                 return;
             }
             res.json(postData);
-        })}
+        }
             catch(err) {
             console.log(err);
             res.status(500).json(err);
@@ -93,13 +92,13 @@ router
             where: {
                 id: req.params.id
             }
-        }).then(postData => {
+        })
             if (!postData) {
                 res.status(404).json({ message: 'No post found with this id' });
                 return;
             }
             res.json(postData);
-        })}
+        }
         catch(err) {
             console.log(err);
             res.status(500).json(err);
@@ -110,14 +109,13 @@ router
             where: {
                 id: req.params.id
             }
-        }).then(postData => {
+        })
             if (!postData) {
                 res.status(404).json({ message: 'No post found with this id' });
                 return;
             }
             res.json(postData)}
-    
-        )} catch(err) {
+        catch(err) {
         console.log(err);
         res.status(500).json(err);
     }

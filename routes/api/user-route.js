@@ -1,9 +1,10 @@
 const router = require('express').Router();
 const { User, Post, Comment } = require('../../models');
+let userData;
 router
 .route('/')
 .get( async (req, res) => {
-    try{const userData = await User.findAll({
+    try{userData = await User.findAll({
         attributes: { exclude: ['[password'] }
     })
     .then(dbUserData => res.json(dbUserData))}
@@ -13,18 +14,18 @@ router
         }
 })
 .post( async (req, res) => {
-    try { const userData = await User.create({
+    try {userData = await User.create({
         username: req.body.username,
         password: req.body.password
     })
 
-    .then(dbUserData => {
+    .then(userData => {
             req.session.save(() => {
-                req.session.user_id = dbUserData.id;
-                req.session.username = dbUserData.username;
+                req.session.user_id = userData.id;
+                req.session.username = userData.username;
                 req.session.loggedIn = true;
 
-                res.json(dbUserData);
+                res.json(userData);
             });
         })}
         catch(err) {
@@ -36,7 +37,7 @@ router
 router
 .route('/:id')
 .get( async (req, res) => {
-    try { const userData = await User.findByPK({
+    try { userData = await User.findByPK({
         attributes: { exclude: ['password'] },
         where: {
             id: req.params.id
@@ -78,7 +79,7 @@ router
         }
 })
 .put( async (req, res) => {
-    try{ const userData = await User.update(req.body, {
+    try{ userData = await User.update(req.body, {
         individualHooks: true,
         where: {
             id: req.params.id
@@ -98,17 +99,17 @@ router
 
 })
 .delete( async (req, res) => {
-    try {const userData = await User.destroy({
+    try {userData = await User.destroy({
         where: {
             id: req.params.id
         }
     })
-    .then(dbUserData => {
-        if (!dbUserData) {
+    .then(userData => {
+        if (!userData) {
             res.status(404).json({ message: 'No user found with this id' });
             return;
         }
-        res.json(dbUserData);
+        res.json(userData);
     })}
         catch(err) {
             console.log(err);
@@ -118,7 +119,7 @@ router
 
 
 router.post('/login', async (req, res) => {
-    try { const userData = await User.findByPK({
+    try { userData = await User.findByPK({
             where: {
                 username: req.body.username
             }
